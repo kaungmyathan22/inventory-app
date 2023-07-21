@@ -6,21 +6,16 @@ import If from "../If";
 import { Navbar } from "./Navbar";
 
 const AdminLayout = () => {
-  const { isCartOpen, toggleCart } = useCartStore();
-  function handleToggle() {
-    toggleCart(!isCartOpen);
-  }
+  const { isCartOpen } = useCartStore();
+
   return (
     <div className="px-[41px] pt-[30px] relative overflow-hidden h-screen flex flex-col font-inter">
-      <Navbar toggleMenu={toggleCart} />
+      <Navbar />
       <div className="flex-1 overflow-auto scrollbar-hide">
         <Outlet />
       </div>
       <AnimatePresence>
-        <If
-          isTrue={isCartOpen}
-          ifBlock={<CartMenu isOpen={isCartOpen} onClose={handleToggle} />}
-        />
+        <If isTrue={isCartOpen} ifBlock={<CartMenu isOpen={isCartOpen} />} />
       </AnimatePresence>
     </div>
   );
