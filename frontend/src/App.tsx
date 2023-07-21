@@ -1,11 +1,11 @@
-import React from "react";
-import Login from "./features/auth/pages/Login";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./routes/Routes";
 
 function App() {
   return (
-    <div className="font-inter">
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 }
 
