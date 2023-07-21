@@ -1,16 +1,15 @@
 import { PriceItem } from "@/features/product/components/PriceItem";
+import { useCartStore } from "@/stores/cart.store";
 import { ICartItem } from "@/types/model";
 import { motion } from "framer-motion";
 import { CartItem } from "./CartItem";
 import { PrimaryButton } from "./PrimaryButton";
 
-export const CartMenu = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
+export const CartMenu = ({ isOpen }: { isOpen: boolean }) => {
+  const { isCartOpen, toggleCart } = useCartStore();
+  function onClose() {
+    toggleCart(!isCartOpen);
+  }
   const cartItems: ICartItem[] = Array(10)
     .fill(0)
     .map((_, i) => ({
