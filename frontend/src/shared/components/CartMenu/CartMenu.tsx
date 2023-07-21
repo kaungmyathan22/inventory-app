@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import useContainer from "./useContainer";
 
 export const CartMenu = ({ isOpen }: { isOpen: boolean }) => {
-  const { onClose, cartItems } = useContainer();
+  const { onClose, cartItems, payNowHandler, subTotal, tax, total } =
+    useContainer();
   return (
     <motion.div
       onClick={onClose}
@@ -52,48 +53,28 @@ export const CartMenu = ({ isOpen }: { isOpen: boolean }) => {
                 {cartItems.map((cartItem) => (
                   <CartItem key={cartItem.id} cartItem={cartItem} />
                 ))}
-                {/* <div className="h-[900px] w-full bg-[blue]"></div> */}
-                {/* <button onClick={onClose}>Close</button> */}
               </div>
               <div className="p-8 bg-primary-25 gap-y-6 flex flex-col">
                 <div className="flex justify-between">
                   <p className="text-gray-600 text-base font-normal leading-5">
                     Subtotal
                   </p>
-                  <PriceItem
-                    price={{
-                      currency: "Ks",
-                      amount: 9000,
-                      prepend: true,
-                    }}
-                  />
+                  <PriceItem price={subTotal} />
                 </div>
                 <div className="flex justify-between">
                   <p className="text-gray-600 text-base font-normal leading-5">
                     Tax (5%)
                   </p>
-                  <PriceItem
-                    price={{
-                      currency: "Ks",
-                      amount: 450,
-                      prepend: true,
-                    }}
-                  />
+                  <PriceItem price={tax} />
                 </div>
                 <div className="border border-dotted border-gray-300" />
                 <div className="flex justify-between">
                   <p className="text-gray-600 text-base font-normal leading-5">
                     Total
                   </p>
-                  <PriceItem
-                    price={{
-                      currency: "Ks",
-                      amount: 9450,
-                      prepend: true,
-                    }}
-                  />
+                  <PriceItem price={total} />
                 </div>
-                <PrimaryButton>Pay Now</PrimaryButton>
+                <PrimaryButton onClick={payNowHandler}>Pay Now</PrimaryButton>
               </div>
             </>
           }

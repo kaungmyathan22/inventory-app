@@ -17,11 +17,13 @@ type Action = {
   addItem: (product: IProduct) => void;
   removeItem: (productId: string) => void;
   updateCartItem: (payload: UpdateCartPayload) => void;
+  clearCart: () => void;
 };
 
 export const useCartStore = create<State & Action>((set) => ({
   isCartOpen: false,
   cartItems: [],
+  clearCart: () => set(() => ({ cartItems: [] })),
   toggleCart: (isCartOpen) => set(() => ({ isCartOpen: isCartOpen })),
   addItem: (product) =>
     set((state) => ({
