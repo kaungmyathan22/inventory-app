@@ -1,5 +1,5 @@
-import React from "react";
 import EmailIcon from "../../../shared/EmailIcon";
+import { PrimaryButton } from "../../../shared/PrimaryButton";
 import Star from "../../../shared/Star";
 import AuthLayout from "../components/Layout";
 
@@ -75,9 +75,7 @@ const Login = () => {
                 />
               </div>
             </div>
-            <button className="w-full px-5 py-2 text-white rounded-lg bg-primary-600">
-              Sign In
-            </button>
+            <PrimaryButton isLoading={false}>Sign In</PrimaryButton>
           </div>
         </div>
       }
