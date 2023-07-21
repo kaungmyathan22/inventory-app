@@ -9,7 +9,7 @@ const AdminLayout = () => {
   const { isCartOpen } = useCartStore();
 
   return (
-    <div className="px-[41px] pt-[30px] relative overflow-hidden h-screen flex flex-col font-inter">
+    <div className="px-6 sm:px-[41px] pt-[30px] relative overflow-hidden h-screen flex flex-col font-inter">
       <Navbar />
       <div className="flex-1 overflow-auto scrollbar-hide">
         <Outlet />
