@@ -1,6 +1,6 @@
+import { ProductItem } from "@/features/product/components/ProductItem";
 import { Chip } from "@/shared/Chip";
 import { ICategory, IProduct } from "@/types/model";
-import { ProductItem } from "../components/ProductItem";
 
 const ProductList = () => {
   const products: IProduct[] = Array(20)

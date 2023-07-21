@@ -1,14 +1,21 @@
-import ImageWithFallback from "@/shared/ImageWithFallback";
+import ImageWithFallback from "@/shared/components/ImageWithFallback/ImageWithFallback";
+import { EmptyImagePlaceholder } from "@/shared/EmptyImagePlaceholder";
+import { useCartStore } from "@/stores/cart.store";
 import { IProduct } from "@/types/model";
-import { EmptyImagePlaceholder } from "../../../shared/EmptyImagePlaceholder";
 import { PriceItem } from "./PriceItem";
 
 interface IProductItemProps {
   product: IProduct;
 }
 export function ProductItem({ product }: IProductItemProps) {
+  const { updateCartItem } = useCartStore();
   return (
-    <div className="product">
+    <div
+      className="product"
+      onClick={() => {
+        updateCartItem({ product, action: "increment" });
+      }}
+    >
       {/* image section */}
       <div>
         <ImageWithFallback
