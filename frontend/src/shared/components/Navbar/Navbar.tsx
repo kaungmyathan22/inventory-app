@@ -1,12 +1,9 @@
-import { useCartStore } from "@/stores/cart.store";
-import BagIcon from "../Icon/BagIcon";
-import SearchIcon from "../Icon/SearchIcon";
+import BagIcon from "@/shared/Icon/BagIcon";
+import SearchIcon from "@/shared/Icon/SearchIcon";
+import useContainer from "./useContainer";
 
 export function Navbar() {
-  const { isCartOpen, toggleCart } = useCartStore();
-  function handleToggle() {
-    toggleCart(!isCartOpen);
-  }
+  const { productCounts, handleToggle } = useContainer();
   return (
     <div className="flex justify-between">
       <img src="/assets/klink-blue.png" alt="" />
@@ -20,7 +17,7 @@ export function Navbar() {
       </div>
       <button onClick={handleToggle} className="relative">
         <div className="bg-red-500 rounded-full text-white text-xs w-5 h-5 flex items-center justify-center absolute -right-1 -top-1">
-          4
+          {productCounts}
         </div>
         <BagIcon />
       </button>

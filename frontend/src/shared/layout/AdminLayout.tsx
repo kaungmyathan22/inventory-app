@@ -1,9 +1,9 @@
+import { CartMenu } from "@/shared/components/CartMenu/CartMenu";
+import { Navbar } from "@/shared/components/Navbar/Navbar";
+import If from "@/shared/If";
 import { useCartStore } from "@/stores/cart.store";
 import { AnimatePresence } from "framer-motion";
 import { Outlet } from "react-router";
-import { CartMenu } from "../CartMenu";
-import If from "../If";
-import { Navbar } from "./Navbar";
 
 const AdminLayout = () => {
   const { isCartOpen } = useCartStore();

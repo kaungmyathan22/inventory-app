@@ -1,16 +1,18 @@
 import { PriceItem } from "@/features/product/components/PriceItem";
+import ImageWithFallback from "@/shared/components/ImageWithFallback/ImageWithFallback";
+import { EmptyImagePlaceholder } from "@/shared/EmptyImagePlaceholder";
+import CloseIcon from "@/shared/Icon/CloseIcon";
+import MinusIcon from "@/shared/Icon/MinusIcon";
+import PlusIcon from "@/shared/Icon/PlusIcon";
 import { ICartItem } from "@/types/model";
-import { EmptyImagePlaceholder } from "./EmptyImagePlaceholder";
-import CloseIcon from "./Icon/CloseIcon";
-import MinusIcon from "./Icon/MinusIcon";
-import PlusIcon from "./Icon/PlusIcon";
-import ImageWithFallback from "./ImageWithFallback";
+import useContainer from "./useContainer";
 
 interface ICartItemProps {
   cartItem: ICartItem;
 }
 export function CartItem({ cartItem }: ICartItemProps) {
-  const { product } = cartItem;
+  const { product, incrementCartHandler, decrementCartHandler, removeItem } =
+    useContainer({ cartItem });
   return (
     <div className="flex gap-x-3">
       {/* product image */}
@@ -30,21 +32,30 @@ export function CartItem({ cartItem }: ICartItemProps) {
         </p>
         <div className="flex gap-x-3 mt-3">
           <div className="flex items-center">
-            <div className="p-3 rounded-l-lg border border-r-0 border-gray-300">
+            <button
+              onClick={decrementCartHandler}
+              className="p-3 rounded-l-lg border border-r-0 border-gray-300"
+            >
               <MinusIcon />
-            </div>
+            </button>
             <div className="p-4 py-[10px] border border-gray-300">
               {cartItem.quantity}
             </div>
-            <div className="p-3 border rounded-r-lg border-l-0 border-gray-300">
+            <button
+              onClick={incrementCartHandler}
+              className="p-3 border rounded-r-lg border-l-0 border-gray-300"
+            >
               <PlusIcon />
-            </div>
+            </button>
           </div>
           <PriceItem className="font-medium" price={product.price} />
         </div>
       </div>
       <div>
-        <CloseIcon />
+        <CloseIcon
+          className="cursor-pointer"
+          onClick={() => removeItem(product.id)}
+        />
       </div>
     </div>
   );

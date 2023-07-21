@@ -1,5 +1,5 @@
-import { useState } from "react";
-import IfElse from "./IfElse";
+import IfElse from "@/shared/IfElse";
+import useContainer from "./useContainer";
 
 interface IImageWithFallback {
   src: string;
@@ -12,10 +12,7 @@ function ImageWithFallback({
   fallback: fallbackSrc,
   alt,
 }: IImageWithFallback) {
-  const [errorShowingImage, setErrorShowingImage] = useState(false);
-  const handleImageError = () => {
-    setErrorShowingImage(true);
-  };
+  const { errorShowingImage, handleImageError } = useContainer();
 
   return (
     <div className="w-full h-full">
