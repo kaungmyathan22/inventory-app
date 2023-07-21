@@ -1,6 +1,6 @@
-import EmailIcon from "../../../shared/EmailIcon";
+import EmailIcon from "../../../shared/Icon/EmailIcon";
+import Star from "../../../shared/Icon/Star";
 import { PrimaryButton } from "../../../shared/PrimaryButton";
-import Star from "../../../shared/Star";
 import AuthLayout from "../components/Layout";
 
 const Login = () => {
