@@ -1,9 +1,10 @@
 import { Controller } from '@interfaces/controller.interface';
+import cors from 'cors';
 import express from 'express';
 import errorMiddleware from 'middlewares/error.middleware';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import { DATABASE_URL, PORT } from './constants';
+import { DATABASE_URL, PORT, WEB_APP_URL } from './constants';
 import i18n from './i18n.config';
 
 export class App {
@@ -13,7 +14,6 @@ export class App {
   }
 
   public run() {
-    console.log({ DATABASE_URL });
     mongoose
       .connect(DATABASE_URL)
       .then(() => {
@@ -35,6 +35,7 @@ export class App {
   }
 
   private initializeMiddlewares() {
+    this.app.use(cors({ origin: WEB_APP_URL }));
     this.app.use(i18n.init);
     this.app.use(express.json());
     this.app.use(morgan('dev'));
