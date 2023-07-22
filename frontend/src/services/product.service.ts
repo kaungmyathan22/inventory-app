@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { IProduct } from "@/types/model";
+import { ICategory, IProduct } from "@/types/model";
 export interface IProductListResponse {
   pagination: Pagination;
   items: Item[];
@@ -33,10 +33,13 @@ export interface Item {
 export class ProductService {
   static async getAllProducts(
     page: number,
-    query: string
+    query: string,
+    categories: string
   ): Promise<ITransformedProductList> {
     const result: IProductListResponse = (await api
-      .get(`/product?page=${page}&searchKeywords=${query}`)
+      .get(
+        `/product?page=${page}&searchKeywords=${query}&categories=${categories}`
+      )
       .then((res) => res.data)) as IProductListResponse;
     const transformedResult: ITransformedProductList = {
       ...result,
@@ -51,5 +54,9 @@ export class ProductService {
       })),
     };
     return transformedResult;
+  }
+
+  static categories(): Promise<ICategory[]> {
+    return api.get("/product/category").then((res) => res.data);
   }
 }

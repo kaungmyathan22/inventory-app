@@ -1,9 +1,26 @@
 import { ICategory } from "@/types/model";
+import cn from "classnames";
 
-export function Chip({ category }: { category: ICategory }) {
+interface IChipProps {
+  category: ICategory;
+  handleSelect: () => void;
+  isSelected?: boolean;
+}
+
+export function Chip({ isSelected, category, handleSelect }: IChipProps) {
   return (
-    <div className="px-3 py-1 rounded-2xl bg-gray-100" key={category.id}>
-      <p className="text-gray-700 text-sm font-medium leading-5">
+    <div
+      className={cn("px-3 py-1 rounded-2xl bg-gray-100 cursor-pointer", {
+        "bg-primary-500": isSelected,
+      })}
+      onClick={handleSelect}
+      key={category.id}
+    >
+      <p
+        className={cn("text-gray-700 text-sm font-medium leading-5", {
+          "text-white": isSelected,
+        })}
+      >
         {category.name}
       </p>
     </div>

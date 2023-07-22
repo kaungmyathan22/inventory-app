@@ -4,24 +4,29 @@ import If from "@/shared/If";
 import IfElse from "@/shared/IfElse";
 import { Loader } from "@/shared/Loader";
 import { PrimaryButton } from "@/shared/PrimaryButton";
-import { ICategory } from "@/types/model";
 import useContainer from "./useContainer";
 
 const ProductList = () => {
   const {
+    selectedCategories,
     products,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading,
+    categories,
+    handleCategorySelect,
+    handleClearSelectedCategories,
   } = useContainer();
-  const categories: ICategory[] = Array(20)
-    .fill(0)
-    .map((_, i) => ({ id: `${i}`, name: `Category ${i}` }));
   return (
     <div>
       <div className="flex flex-wrap mt-8 gap-2 pb-6">
         <Chip
+          isSelected={
+            selectedCategories.length === 0 ||
+            selectedCategories.length === categories.length
+          }
+          handleSelect={handleClearSelectedCategories}
           key={0}
           category={{
             id: `${Date.now()}`,
@@ -29,7 +34,12 @@ const ProductList = () => {
           }}
         />
         {categories.map((category) => (
-          <Chip key={category.id} category={category} />
+          <Chip
+            key={category.id}
+            isSelected={selectedCategories.includes(category.id)}
+            handleSelect={() => handleCategorySelect(category.id)}
+            category={category}
+          />
         ))}
       </div>
       <IfElse
@@ -40,7 +50,7 @@ const ProductList = () => {
           </div>
         }
         elseBlock={
-          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-2 lg:grid-cols-6 gap-x-2 gap-y-2">
+          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:grid-cols-4 xl:grid-cols-6 gap-x-2 gap-y-2">
             {products.map((product) => (
               <ProductItem key={product.id} product={product} />
             ))}
