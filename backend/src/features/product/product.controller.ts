@@ -30,29 +30,47 @@ export class ProductController extends Controller {
     this.createProduct = this.createProduct.bind(this);
     this.createCategory = this.createCategory.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.getCategories = this.getCategories.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.deleteCategory = this.deleteCategory.bind(this);
     this.updateProduct = this.updateProduct.bind(this);
+    this.updateCategory = this.updateCategory.bind(this);
   }
 
   initializeRoutes() {
     this.router
       .use(AuthenticationMiddleware.loginRequired)
-      .post('/', validationMiddleware(CreateProductDTO), this.createProduct)
       .post(
         '/category',
         validationMiddleware(CreateCategoryDTO),
         this.createCategory,
       )
-      .get(`/`, this.getProducts)
-      .get(`/:id`, this.getProduct)
-      .put(`/:id`, validationMiddleware(UpdateProductDTO), this.updateProduct)
+      .delete(`/category/:id`, this.deleteCategory)
+      .get('/category', this.getCategories)
       .put(
         `/category/:id`,
         validationMiddleware(UpdateCategoryDTO),
         this.updateCategory,
       )
+      .post('/', validationMiddleware(CreateProductDTO), this.createProduct)
+      .get(`/`, this.getProducts)
+      .get(`/:id`, this.getProduct)
+      .put(`/:id`, validationMiddleware(UpdateProductDTO), this.updateProduct)
       .delete(`/:id`, this.deleteProduct);
+  }
+
+  private getCategories(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    return this.categoryRepository
+      .find()
+      .then((res) => response.json(res))
+      .catch((error) => {
+        next(error);
+      });
   }
 
   private createCategory(
@@ -88,14 +106,46 @@ export class ProductController extends Controller {
         return response.json({ result });
       })
       .catch((error) => {
+        console.error(error);
         if (error.name === 'CastError') {
           // Handle ID cast error
           next(new InvalidIdExeption());
         } else {
-          console.error(error);
           next(new InternalServerError());
         }
       });
+  }
+
+  private async deleteCategory(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    try {
+      const result = await this.categoryRepository.findByIdAndDelete(
+        request.params.id,
+      );
+      if (!result) {
+        return next(
+          new NotFoundException(
+            `Category with ${request.params.id} not found.`,
+          ),
+        );
+      }
+      return response.status(httpStatus.OK).json({
+        sucess: true,
+        message: `Category deleted with ${request.params.id}`,
+      });
+    } catch (error) {
+      if (error.name === 'CastError') {
+        // Handle ID cast error
+        next(new InvalidIdExeption());
+      } else {
+        next(new InternalServerError());
+        // Handle other errors
+        console.error(error);
+      }
+    }
   }
 
   private createProduct(

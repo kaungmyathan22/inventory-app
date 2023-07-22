@@ -9,6 +9,7 @@ function errorMiddleware(
   response: Response,
   next: NextFunction,
 ) {
+  console.log(error);
   if (error.status) {
     return response.status(error.status).json({
       status: error.status,
