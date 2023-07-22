@@ -8,5 +8,7 @@
 	"Success": "Success",
 	"The product you are looking for is not found.": "The product you are looking for is not found.",
 	"Successfully deleted the user.": "Successfully deleted the user.",
-	"Something went wrong": "Something went wrong"
+	"Something went wrong": "Something went wrong",
+	"Invalid email / password.": "Invalid email / password.",
+	"Token has expired.": "Token has expired."
 }
