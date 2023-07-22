@@ -6,7 +6,7 @@ const Routes = () => {
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex items-center justify-center">
-        <Loader className="h-[40px] w-[40px] border-black" />
+        <Loader className="h-[40px] w-[40px] border-black " />
       </div>
     );
   }
