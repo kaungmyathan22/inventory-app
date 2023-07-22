@@ -5,6 +5,7 @@ Simple inventory app built with mern stack.
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Demo](#demo)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
@@ -13,6 +14,9 @@ Simple inventory app built with mern stack.
 ## Introduction
 
 Simple Inventory app with the following minimal features.
+
+## Demo
+You can check the live demo of the project at https://inventory-app-five-hazel.vercel.app/
 
 ## Features
 
