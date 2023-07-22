@@ -35,7 +35,8 @@ export class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(cors({ origin: WEB_APP_URL }));
+    // this.app.use(cors({ origin: WEB_APP_URL }));
+    this.app.use(cors());
     this.app.use(i18n.init);
     this.app.use(express.json());
     this.app.use(morgan('dev'));
