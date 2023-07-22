@@ -31,9 +31,12 @@ export interface Item {
 }
 
 export class ProductService {
-  static async getAllProducts(page: number): Promise<ITransformedProductList> {
+  static async getAllProducts(
+    page: number,
+    query: string
+  ): Promise<ITransformedProductList> {
     const result: IProductListResponse = (await api
-      .get(`/product?page=${page}`)
+      .get(`/product?page=${page}&searchKeywords=${query}`)
       .then((res) => res.data)) as IProductListResponse;
     const transformedResult: ITransformedProductList = {
       ...result,
