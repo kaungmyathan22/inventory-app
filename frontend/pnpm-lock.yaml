@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@hookform/resolvers': ^3.1.1
+  '@types/node': ^20.4.4
   '@types/react': ^18.2.15
   '@types/react-dom': ^18.2.7
   '@types/uuid': ^9.0.2
@@ -51,6 +52,7 @@ dependencies:
   zustand: 4.3.9_react@18.2.0
 
 devDependencies:
+  '@types/node': 20.4.4
   '@types/react': 18.2.15
   '@types/react-dom': 18.2.7
   '@types/uuid': 9.0.2
@@ -64,7 +66,7 @@ devDependencies:
   postcss: 8.4.26
   tailwindcss: 3.3.3
   typescript: 5.1.6
-  vite: 4.4.6
+  vite: 4.4.6_@types+node@20.4.4
 
 packages:
 
@@ -651,6 +653,10 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
+  /@types/node/20.4.4:
+    resolution: {integrity: sha512-CukZhumInROvLq3+b5gLev+vgpsIqC2D0deQr/yS1WnxvmYLlJXZpaQrQiseMY+6xusl79E04UjWoqyr+t1/Ew==}
+    dev: true
+
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
@@ -823,7 +829,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5_@babel+core@7.22.9
       '@babel/plugin-transform-react-jsx-source': 7.22.5_@babel+core@7.22.9
       react-refresh: 0.14.0
-      vite: 4.4.6
+      vite: 4.4.6_@types+node@20.4.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2307,7 +2313,7 @@ packages:
     hasBin: true
     dev: false
 
-  /vite/4.4.6:
+  /vite/4.4.6_@types+node@20.4.4:
     resolution: {integrity: sha512-EY6Mm8vJ++S3D4tNAckaZfw3JwG3wa794Vt70M6cNJ6NxT87yhq7EC8Rcap3ahyHdo8AhCmV9PTk+vG1HiYn1A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2335,6 +2341,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.4.4
       esbuild: 0.18.15
       postcss: 8.4.26
       rollup: 3.26.3
