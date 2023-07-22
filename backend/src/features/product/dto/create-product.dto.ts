@@ -10,4 +10,7 @@ export class CreateProductDTO {
 
   @IsString()
   image: string;
+
+  @IsString()
+  category: string;
 }

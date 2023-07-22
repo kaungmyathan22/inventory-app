@@ -13,4 +13,8 @@ export class UpdateProductDTO {
   @IsString()
   @IsOptional()
   image?: string;
+
+  @IsOptional()
+  @IsString()
+  category: string;
 }

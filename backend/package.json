@@ -5,7 +5,7 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "nodemon",
-    "seed:user": "ts-node ./seeders/user.seeder.ts",
+    "seed:product": "ts-node ./seeders/product.seeder.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

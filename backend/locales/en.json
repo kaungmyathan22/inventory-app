@@ -11,5 +11,6 @@
 	"Something went wrong": "Something went wrong",
 	"Invalid email / password.": "Invalid email / password.",
 	"Token has expired.": "Token has expired.",
-	"Category with this name already exists": "Category with this name already exists"
+	"Category with this name already exists": "Category with this name already exists",
+	"The given category not found.": "The given category not found."
 }

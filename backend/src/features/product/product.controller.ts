@@ -3,7 +3,6 @@ import { InvalidIdExeption } from '@exceptions/invalidId.exception';
 import NotFoundException from '@exceptions/notFound.exception';
 import { ResourceConflictException } from '@exceptions/ResourceConflictException';
 import { Controller } from '@interfaces/controller.interface';
-import { AuthenticationMiddleware } from '@middlewares/authentication.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 import { getParsedPaginationData, translateMessage } from '@utils/functions';
 import * as express from 'express';
@@ -40,7 +39,7 @@ export class ProductController extends Controller {
 
   initializeRoutes() {
     this.router
-      .use(AuthenticationMiddleware.loginRequired)
+      // .use(AuthenticationMiddleware.loginRequired)
       .post(
         '/category',
         validationMiddleware(CreateCategoryDTO),
@@ -148,15 +147,27 @@ export class ProductController extends Controller {
     }
   }
 
-  private createProduct(
+  private async createProduct(
     request: express.Request,
     response: express.Response,
     next: express.NextFunction,
   ) {
-    return this.productRepository
-      .create(request.body)
-      .then((res) => response.json(res))
-      .catch((error) => next(error));
+    try {
+      const category = await this.categoryRepository
+        .findById(request.body.category)
+        .lean();
+      if (!category) {
+        throw new NotFoundException(
+          translateMessage('The given category not found.'),
+        );
+      }
+      const result = await this.productRepository.create({
+        ...request.body,
+      });
+      return response.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 
   private async getProducts(
@@ -179,6 +190,7 @@ export class ProductController extends Controller {
         .find(filter)
         .skip((page - 1) * rowsPerPage)
         .limit(rowsPerPage)
+        .populate('category')
         .lean()
         .then((res) =>
           response.json({
@@ -206,7 +218,10 @@ export class ProductController extends Controller {
   ) {
     try {
       const id = request.params.id;
-      const product = await this.productRepository.findById(id).lean();
+      const product = await this.productRepository
+        .findById(id)
+        .populate('category')
+        .lean();
       if (product) {
         return response.json(product);
       }
