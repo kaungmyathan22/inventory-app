@@ -1,0 +1,10 @@
+{
+	"User with this name already exists": "User with this name already exists",
+	"User with this email already exists": "User with this email already exists",
+	"Unauthorized": "Unauthorized",
+	"Invalid token value.": "Invalid token value.",
+	"Successfully delete the user account!": "Successfully delete the user account!",
+	"Invalid id value.": "Invalid id value.",
+	"Success": "Success",
+	"The product you are looking for is not found.": "The product you are looking for is not found."
+}
