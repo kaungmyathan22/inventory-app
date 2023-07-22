@@ -1,0 +1,46 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "target": "es2017",
+        "outDir": "./dist",
+        "skipLibCheck": true,
+        "baseUrl": "./src",
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "paths": {
+            "@middlewares/*": [
+                "middlewares/*"
+            ],
+            "@interfaces/*": [
+                "interfaces/*"
+            ],
+            "@exceptions/*": [
+                "exceptions/*"
+            ],
+            "@utils/*": [
+                "utils/*"
+            ],
+            "@features/*": [
+                "features/*"
+            ],
+            "@config/*": [
+                "config/*"
+            ]
+        },
+        "typeRoots": [
+            "./src/types"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/types/**/*.ts",
+        "./types.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
