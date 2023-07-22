@@ -1,23 +1,52 @@
-version: "3"
+version: '3.8'
 services:
-  nestjs-app:
-    build:
-      context: .
-      dockerfile: ./backend/Dockerfile
-    ports:
-      - "3000:3000"
+  # MongoDB service
+  mongodb:
+    image: mongo
+    container_name: mern-mongo
     volumes:
-      - .:/usr/src/app
-    environment:
-      - DATABASE_HOST=db
-      - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=root
-      - DATABASE_NAME=ecommerce
+      - mongodb_data:/data/db
+    ports:
+      - '27018:27017'
+    networks:
+      - mern_network
 
-  db:
-    image: postgres
+  # Node.js (Express) backend service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mern-backend
     restart: always
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongodb
     environment:
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: ecommerce
+      - DATABASE_URL=mongodb://mongodb:27018/mern-app
+      - JWT_EXPIRES_IN=3h
+      - PORT=5000
+      - WEB_APP_URL=http://127.0.0.1:3000
+      - JWT_SECRET=7XPk+M7ReNr/IZt7Ulu9uSqVtzRdbFWQLbjbGEX9Pv+2PPYbuGxu4X2tRTqIjO++F0rne35o8URx1BCrktG71EjUiL6VnUqwdPNj1heD7sQVmcmX2xLlwCq7m/hdq709euMV2TI+fXxzoz5xsdGIPHnJrTTau87GY+EiPB4Y8ErkQLkMF8iEFJ2WDnkwJZYp1969kM0VSjwVPJ1KIUil0fccyulJyY+zaz+5bNhrNeiNFSME0DM25GlcyQSTLlD855eitYv2pt8=
+    networks:
+      - mern_network
+  # React frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mern-frontend
+    restart: always
+    ports:
+      - '3000:80'
+    depends_on:
+      - backend
+    environment:
+      - VITE_BACKEND_URL=http://backend:5000
+    networks:
+      - mern_network
+
+volumes:
+  mongodb_data:
+networks:
+  mern_network:
