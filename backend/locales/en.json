@@ -10,5 +10,6 @@
 	"Successfully deleted the user.": "Successfully deleted the user.",
 	"Something went wrong": "Something went wrong",
 	"Invalid email / password.": "Invalid email / password.",
-	"Token has expired.": "Token has expired."
+	"Token has expired.": "Token has expired.",
+	"Category with this name already exists": "Category with this name already exists"
 }

@@ -1,18 +1,23 @@
 import { InternalServerError } from '@exceptions/InternalServerError';
 import { InvalidIdExeption } from '@exceptions/invalidId.exception';
 import NotFoundException from '@exceptions/notFound.exception';
+import { ResourceConflictException } from '@exceptions/ResourceConflictException';
 import { Controller } from '@interfaces/controller.interface';
 import { AuthenticationMiddleware } from '@middlewares/authentication.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 import { getParsedPaginationData, translateMessage } from '@utils/functions';
 import * as express from 'express';
 import httpStatus from 'http-status';
+import { CreateCategoryDTO } from './dto/create-category.dto';
 import { CreateProductDTO } from './dto/create-product.dto';
+import { UpdateCategoryDTO } from './dto/update-category.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
+import { categoryModel } from './models/category.model';
 import { productModel } from './models/product.model';
 
 export class ProductController extends Controller {
   private productRepository = productModel;
+  private categoryRepository = categoryModel;
   constructor() {
     super();
     this.route = '/v1/product';
@@ -23,6 +28,7 @@ export class ProductController extends Controller {
 
   private bindMethods() {
     this.createProduct = this.createProduct.bind(this);
+    this.createCategory = this.createCategory.bind(this);
     this.getProducts = this.getProducts.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
@@ -33,10 +39,63 @@ export class ProductController extends Controller {
     this.router
       .use(AuthenticationMiddleware.loginRequired)
       .post('/', validationMiddleware(CreateProductDTO), this.createProduct)
+      .post(
+        '/category',
+        validationMiddleware(CreateCategoryDTO),
+        this.createCategory,
+      )
       .get(`/`, this.getProducts)
       .get(`/:id`, this.getProduct)
       .put(`/:id`, validationMiddleware(UpdateProductDTO), this.updateProduct)
+      .put(
+        `/category/:id`,
+        validationMiddleware(UpdateCategoryDTO),
+        this.updateCategory,
+      )
       .delete(`/:id`, this.deleteProduct);
+  }
+
+  private createCategory(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    return this.categoryRepository
+      .create(request.body)
+      .then((res) => response.json(res))
+      .catch((error) => {
+        if (error.code === 11000) {
+          next(
+            new ResourceConflictException(
+              translateMessage('Category with this name already exists'),
+            ),
+          );
+        }
+        next(error);
+      });
+  }
+
+  private updateCategory(
+    request: express.Request,
+    response: express.Response,
+    next: express.NextFunction,
+  ) {
+    return this.categoryRepository
+      .findOneAndUpdate({ _id: request.params.id }, request.body, {
+        new: true,
+      })
+      .then((result) => {
+        return response.json({ result });
+      })
+      .catch((error) => {
+        if (error.name === 'CastError') {
+          // Handle ID cast error
+          next(new InvalidIdExeption());
+        } else {
+          console.error(error);
+          next(new InternalServerError());
+        }
+      });
   }
 
   private createProduct(

@@ -5,6 +5,7 @@ const categorySchema = new Schema(
     name: {
       type: String,
       index: 'text',
+      unique: true,
     },
   },
   {
