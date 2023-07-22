@@ -1,5 +1,5 @@
 interface ILoaderProps {
-  className: string;
+  className?: string;
 }
 export function Loader({ className }: ILoaderProps) {
   return (

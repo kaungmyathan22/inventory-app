@@ -6,10 +6,12 @@ export interface ICategory {
 export interface IProduct {
   id: string;
   name: string;
-  image: string;
   price: IPrice;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
-
 export interface IPrice {
   amount: number;
   currency: string;
