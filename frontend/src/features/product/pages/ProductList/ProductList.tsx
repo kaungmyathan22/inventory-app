@@ -46,7 +46,7 @@ const ProductList = () => {
         isTrue={isLoading}
         ifBlock={
           <div className="w-full min-h-[300px] flex items-center justify-center">
-            <Loader className="border-black" />
+            <Loader borderColor="border-black" />
           </div>
         }
         elseBlock={
@@ -61,7 +61,7 @@ const ProductList = () => {
       <If
         isTrue={!!(hasNextPage && !isLoading)}
         ifBlock={
-          <div className="w-full mx-auto">
+          <div className="mx-auto w-fit">
             <PrimaryButton
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
