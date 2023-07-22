@@ -7,6 +7,7 @@ import validationMiddleware from '@middlewares/validation.middleware';
 import { getParsedPaginationData, translateMessage } from '@utils/functions';
 import * as express from 'express';
 import httpStatus from 'http-status';
+import mongoose from 'mongoose';
 import { CreateCategoryDTO } from './dto/create-category.dto';
 import { CreateProductDTO } from './dto/create-product.dto';
 import { UpdateCategoryDTO } from './dto/update-category.dto';
@@ -176,14 +177,30 @@ export class ProductController extends Controller {
     next: express.NextFunction,
   ) {
     try {
+      const categories: string[] = `${
+        (request.query.categories as string) || ''
+      }`.split(',');
+      const categoryObjectIds: mongoose.Types.ObjectId[] = Array.isArray(
+        categories,
+      )
+        ? categories
+            .filter((category) => mongoose.isValidObjectId(category))
+            .map((categoryId) => new mongoose.Types.ObjectId(categoryId))
+        : [];
       const { page, rowsPerPage, searchKeywords } = getParsedPaginationData(
         request.query,
       );
-      const filter =
+      let filter: any =
         searchKeywords.trim().length === 0
           ? {}
           : { $text: { $search: searchKeywords } };
 
+      if (categoryObjectIds.length > 0) {
+        filter =
+          categoryObjectIds.length === 0
+            ? filter
+            : { ...filter, category: { $in: categoryObjectIds } };
+      }
       const totalItems = await this.productRepository.find(filter).count();
       const totalPages = Math.ceil(totalItems / rowsPerPage);
       return this.productRepository
