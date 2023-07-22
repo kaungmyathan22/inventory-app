@@ -1,8 +1,7 @@
 
-# Project Name
+# Inventory Software
 
-Short description or tagline for your MERN project.
-
+Simple inventory app built with mern stack.
 ## Table of Contents
 
 - [Introduction](#introduction)

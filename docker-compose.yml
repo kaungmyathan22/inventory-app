@@ -1,0 +1,23 @@
+version: "3"
+services:
+  nestjs-app:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=ecommerce
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ecommerce
