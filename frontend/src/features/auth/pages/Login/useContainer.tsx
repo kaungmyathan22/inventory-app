@@ -30,7 +30,6 @@ const useContainer = () => {
   });
 
   function loginHandler() {
-    console.log("Submitting");
     loginMutation.mutate({
       ...watch(),
     });

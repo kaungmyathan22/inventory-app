@@ -48,7 +48,6 @@ export const useCartStore = create<State & Action>((set) => ({
           updatedItems[existingItemIndex].quantity += 1;
         } else if (action === "decrement") {
           updatedItems[existingItemIndex].quantity -= 1;
-          console.log(updatedItems[existingItemIndex].quantity);
           if (updatedItems[existingItemIndex].quantity <= 0) {
             // If quantity becomes zero or negative, remove the item from the cart
             updatedItems.splice(existingItemIndex, 1);

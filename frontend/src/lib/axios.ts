@@ -7,14 +7,10 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(function (request: InternalAxiosRequestConfig) {
-  let token: string = "";
-  const adminFromLocalStorage = getDataFromLocalStorage({
+  const token = getDataFromLocalStorage({
     key: TOKEN,
   });
-  if (adminFromLocalStorage?.access_token) {
-    token = adminFromLocalStorage.access_token;
-  }
-  if (token.trim().length > 0) {
+  if (token && token.trim().length > 0) {
     request.headers.Authorization = `Bearer ${token}`;
   }
   return request;
