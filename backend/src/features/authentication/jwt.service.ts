@@ -1,4 +1,4 @@
-import { BadRequestException } from '@exceptions/badRequest.exception';
+import { UnauthorizedException } from '@exceptions/Unauthorized.exception';
 import { EnvUtils } from '@utils/EnvUtils';
 import { translateMessage } from '@utils/functions';
 import jsonwebtoken from 'jsonwebtoken';
@@ -36,10 +36,12 @@ export class JwtService {
       return payload;
     } catch (error) {
       if (error.name === 'JsonWebTokenError') {
-        throw new BadRequestException(translateMessage('Invalid token value.'));
+        throw new UnauthorizedException(
+          translateMessage('Invalid token value.'),
+        );
       }
       if (error.name === 'TokenExpiredError') {
-        throw new BadRequestException(translateMessage('Token has expired.'));
+        throw new UnauthorizedException(translateMessage('Token has expired.'));
       }
       throw error;
     }
