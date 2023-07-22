@@ -1,4 +1,4 @@
-import Login from "@/features/auth/pages/Login";
+import Login from "@/features/auth/pages/Login/Login";
 import ProductList from "@/features/product/pages/ProductList";
 import AdminLayout from "@/shared/layout/AdminLayout";
 import { Navigate, useRoutes } from "react-router";

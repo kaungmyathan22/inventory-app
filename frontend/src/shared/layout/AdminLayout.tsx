@@ -7,7 +7,7 @@ import { Outlet } from "react-router";
 
 const AdminLayout = () => {
   const { isCartOpen } = useCartStore();
-
+  // const navigate = useNavigate();
   return (
     <div className="px-6 sm:px-[41px] pt-[30px] relative overflow-hidden h-screen flex flex-col font-inter">
       <Navbar />

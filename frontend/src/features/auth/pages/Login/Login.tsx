@@ -1,9 +1,13 @@
 import EmailIcon from "@/shared/Icon/EmailIcon";
 import Star from "@/shared/Icon/Star";
+import If from "@/shared/If";
 import AuthLayout from "@/shared/layout/AuthLayout";
 import { PrimaryButton } from "@/shared/PrimaryButton";
+import useContainer from "./useContainer";
 
 const Login = () => {
+  const { handleSubmit, loginHandler, register, isValid, isLoading, errors } =
+    useContainer();
   return (
     <AuthLayout
       left={
@@ -19,7 +23,7 @@ const Login = () => {
             <div className="flex items-center gap-x-1">
               {Array(5)
                 .fill(0)
-                .map((index) => (
+                .map((_, index) => (
                   <Star key={index} />
                 ))}
             </div>
@@ -48,7 +52,7 @@ const Login = () => {
       }
       right={
         <div className="flex flex-col items-center justify-center h-full">
-          <div className="w-[360px]">
+          <form onSubmit={handleSubmit(loginHandler)} className="w-[360px]">
             <div className="flex flex-col mb-10 gap-y-3">
               <h5 className="text-4xl font-semibold leading-10 text-gray-900 ">
                 Log in
@@ -64,6 +68,11 @@ const Login = () => {
                   type="text"
                   placeholder="Enter your email"
                   className="input"
+                  {...register("email")}
+                />
+                <If
+                  ifBlock={<ErrorMessage message={errors?.email?.message} />}
+                  isTrue={!!errors.email?.message}
                 />
               </div>
               <div className="flex flex-col gap-y-2">
@@ -72,11 +81,21 @@ const Login = () => {
                   type="password"
                   placeholder="Enter your password"
                   className="input"
+                  {...register("password")}
+                />
+                <If
+                  ifBlock={<ErrorMessage message={errors?.password?.message} />}
+                  isTrue={!!errors.password?.message}
                 />
               </div>
             </div>
-            <PrimaryButton isLoading={false}>Sign In</PrimaryButton>
-          </div>
+            <PrimaryButton
+              isLoading={isLoading}
+              disabled={!isValid || isLoading}
+            >
+              Sign In
+            </PrimaryButton>
+          </form>
         </div>
       }
     />
@@ -84,3 +103,7 @@ const Login = () => {
 };
 
 export default Login;
+
+function ErrorMessage({ message }: { message: string | undefined }) {
+  return <p className="text-xs text-red-500">{message}</p>;
+}

@@ -8,6 +8,7 @@ export function getResponseMessage(data: any, type: MessageType = "error") {
     type === "error"
       ? data?.response?.data?.message || defaultErrorMessage
       : data?.message || defaultSuccessMessage;
+  console.log({ message });
   if (type === "error") {
     toast.error(message, {
       toastId: message,
