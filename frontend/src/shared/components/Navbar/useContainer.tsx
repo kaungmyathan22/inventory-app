@@ -1,8 +1,10 @@
 import { useCartStore } from "@/stores/cart.store";
+import { useSearchStore } from "@/stores/search.store";
 import { useMemo } from "react";
 
 const useContainer = () => {
   const { isCartOpen, toggleCart, cartItems } = useCartStore();
+  const { setSearchKeyword } = useSearchStore();
   function handleToggle() {
     toggleCart(!isCartOpen);
   }
@@ -11,9 +13,14 @@ const useContainer = () => {
     [cartItems]
   );
 
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  };
+
   return {
     productCounts,
     handleToggle,
+    onChangeHandler,
   };
 };
 
