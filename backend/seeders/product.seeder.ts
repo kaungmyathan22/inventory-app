@@ -17,7 +17,7 @@ async function createProduct() {
         name: `${faker.commerce.productAdjective()} ${faker.commerce.product()}`,
         price: 3000,
         image: '',
-        category: category._id,
+        category: category.id,
       };
       const res = await axios
         .post(`${BASE_URL}/api/v1/product`, payload)
