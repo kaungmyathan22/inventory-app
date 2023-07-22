@@ -1,7 +1,9 @@
 import { ProductService } from "@/services/product.service";
+import { useSearchStore } from "@/stores/search.store";
 import { useInfiniteQuery } from "react-query";
 
 const useContainer = () => {
+  const { query } = useSearchStore();
   const {
     isSuccess,
     fetchNextPage, //function
@@ -10,8 +12,8 @@ const useContainer = () => {
     data,
     isLoading,
   } = useInfiniteQuery(
-    ["product-list"],
-    ({ pageParam = 1 }) => ProductService.getAllProducts(pageParam),
+    ["product-list", query],
+    ({ pageParam = 1 }) => ProductService.getAllProducts(pageParam, query),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.pagination.nextPage;

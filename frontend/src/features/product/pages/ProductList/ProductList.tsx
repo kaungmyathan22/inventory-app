@@ -18,7 +18,6 @@ const ProductList = () => {
   const categories: ICategory[] = Array(20)
     .fill(0)
     .map((_, i) => ({ id: `${i}`, name: `Category ${i}` }));
-  console.log({ product: products[0] });
   return (
     <div>
       <div className="flex flex-wrap mt-8 gap-2 pb-6">
