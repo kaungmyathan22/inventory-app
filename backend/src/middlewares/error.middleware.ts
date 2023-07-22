@@ -10,12 +10,12 @@ function errorMiddleware(
   next: NextFunction,
 ) {
   if (error.status) {
-    return response.json({
+    return response.status(error.status).json({
       status: error.status,
       message: error.message,
     });
   }
-  return response.send({
+  return response.status(httpStatus.INTERNAL_SERVER_ERROR).json({
     message: translateMessage('Something went wrong'),
     status: httpStatus.INTERNAL_SERVER_ERROR,
   });
