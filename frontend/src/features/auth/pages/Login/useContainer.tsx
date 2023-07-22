@@ -1,4 +1,5 @@
 import { AuthApiService } from "@/services/Auth.service";
+import { useUserStore } from "@/stores/user.store";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -10,10 +11,12 @@ interface ILoginForm {
 }
 
 const useContainer = () => {
+  const { login } = useUserStore();
   const loginMutation = useMutation({
     mutationFn: AuthApiService.login,
     onSuccess: (data) => {
-      console.log(data);
+      login(data.user);
+      localStorage.setItem("token", data.token);
     },
   });
   const {

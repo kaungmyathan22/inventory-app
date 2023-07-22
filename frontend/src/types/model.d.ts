@@ -21,3 +21,10 @@ export interface ICartItem {
   quantity: number;
   product: IProduct;
 }
+
+export interface IUser {
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
