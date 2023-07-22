@@ -1,11 +1,14 @@
 {
   "name": "nodejs-express-mongodb-typescript-blog-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "src/server.ts",
   "scripts": {
     "dev": "nodemon",
+    "start": "node ./dist/server.js",
     "seed:product": "ts-node -r tsconfig-paths/register ./seeders/product.seeder.ts",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -46,6 +49,7 @@
     "module-alias": "^2.2.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "tsc-alias": "^1.8.2"
   }
 }

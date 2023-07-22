@@ -1,40 +1,94 @@
 {
+    // "compilerOptions": {
+    //     "esModuleInterop": true,
+    //     "moduleResolution": "node",
+    //     "sourceMap": true,
+    //     "module": "ESNext",
+    //     "target": "es2017",
+    //     "outDir": "./dist",
+    //     "skipLibCheck": true,
+    //     "baseUrl": "./src",
+    //     "alwaysStrict": true,
+    //     "noImplicitAny": true,
+    //     "experimentalDecorators": true,
+    //     "emitDecoratorMetadata": true,
+    //     "paths": {
+    //         "@middlewares/*": [
+    //             "middlewares/*"
+    //         ],
+    //         "@interfaces/*": [
+    //             "interfaces/*"
+    //         ],
+    //         "@exceptions/*": [
+    //             "exceptions/*"
+    //         ],
+    //         "@utils/*": [
+    //             "utils/*"
+    //         ],
+    //         "@features/*": [
+    //             "features/*"
+    //         ],
+    //         "@config/*": [
+    //             "config/*"
+    //         ]
+    //     },
+    //     "typeRoots": [
+    //         "./src/types"
+    //     ]
+    // },
     "compilerOptions": {
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "target": "es2017",
-        "outDir": "./dist",
-        "skipLibCheck": true,
-        "baseUrl": "./src",
-        "alwaysStrict": true,
-        "noImplicitAny": true,
-        "experimentalDecorators": true,
+        "lib": [
+            "es5",
+            "es6"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2022",
+        "importHelpers": true,
         "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "declaration": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "stripInternal": true,
+        "pretty": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "downlevelIteration": true,
+        "module": "commonjs",
+        "rootDir": "./",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
         "paths": {
             "@middlewares/*": [
-                "middlewares/*"
+                "./src/middlewares/*"
             ],
             "@interfaces/*": [
-                "interfaces/*"
+                "./src/interfaces/*"
             ],
             "@exceptions/*": [
-                "exceptions/*"
+                "./src/exceptions/*"
             ],
             "@utils/*": [
-                "utils/*"
+                "./src/utils/*"
             ],
             "@features/*": [
-                "features/*"
+                "./src/features/*"
             ],
             "@config/*": [
-                "config/*"
+                "./src/config/*"
             ]
         },
         "typeRoots": [
             "./src/types"
         ]
     },
+    // "types": ["reflect-metadata"]
     "include": [
         "src/**/*.ts",
         "src/types/**/*.ts",
