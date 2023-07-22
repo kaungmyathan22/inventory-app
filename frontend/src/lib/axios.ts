@@ -25,6 +25,7 @@ api.interceptors.response.use(
       !window.location.pathname.startsWith("/auth") &&
       error?.response?.status === 401
     ) {
+      localStorage.removeItem(TOKEN);
       window.location.replace("/auth");
     }
     return Promise.reject(error);
